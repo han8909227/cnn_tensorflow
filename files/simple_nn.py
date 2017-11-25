@@ -42,13 +42,18 @@ sess.run(init)  # run session
 fig = plt.figure()  # initialize a plot instance
 ax = fig.add_subplot(1, 1, 1)
 ax.scatter(x_data, y_data)  # plot x,y data
+plt.ion()   # do not pause the plot
 plt.show()  # show graph on running
 
 for num in range(1000):
     sess.run(train_step, feed_dict={xs: x_data, ys: y_data})  # using all data to improve
     if num % 20 == 0:
         # print(sess.run(loss, feed_dict={xs: x_data, ys: y_data}))
+
+        try:
+            ax.lines.remove(lines[0])
+        except Exception:
+            pass
         prediction_val = sess.run(prediction, feed_dict={xs: x_data})
         lines = ax.plot(x_data, prediction_val, 'r-', lw=5)  # state prediction line on graph (red line)
-
-
+        plt.pause(0.1)
