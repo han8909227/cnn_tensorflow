@@ -49,13 +49,9 @@ with tf.variable_scope('Net'):
     tf.summary.histogram('h_out', layer_one)
     tf.summary.histogram('pred', prediction)
 
-
 loss = tf.losses.mean_squared_error(ys, prediction, scope='loss')
 train_op = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
 tf.summary.scalar('loss', loss)  # show loss in tensorboard
-
-# with tf.name_scope('train'):
-#     train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)  # train step to minimize loss using gd optimizer
 
 init = tf.global_variables_initializer()
 sess = tf.Session()  # create session
